@@ -1,5 +1,4 @@
 ﻿using MediaPlayer.src.Controller.CLI;
-using MediaPlayer.src.Controller.Models;
 
 internal class Program
 {

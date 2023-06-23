@@ -1,4 +1,3 @@
-
 using MediaPlayer.src.Core.Services;
 
 namespace MediaPlayer.src.Controller.CLI
@@ -72,7 +71,7 @@ namespace MediaPlayer.src.Controller.CLI
             Console.WriteLine("5. Seek");
             Console.WriteLine("6. Create Playlist");
             Console.WriteLine("7. Add file to Playlist");
-            Console.WriteLine("8. Remove Song from Playlist");
+            Console.WriteLine("8. Remove file from Playlist");
             Console.WriteLine("0. Exit");
             Console.Write("Enter your choice: ");
         }
