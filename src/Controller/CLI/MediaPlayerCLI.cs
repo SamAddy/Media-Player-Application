@@ -22,7 +22,7 @@ namespace MediaPlayer.src.Controller.CLI
             Console.WriteLine("SKA Media Player");
             while (true)
             {
-                DisplMainMenu();
+                DisplayMainMenu();
                 string? userInput = Console.ReadLine();
                 switch(userInput)
                 {
@@ -61,7 +61,7 @@ namespace MediaPlayer.src.Controller.CLI
             }
         }
 
-        private void DisplMainMenu()
+        private void DisplayMainMenu()
         {
             Console.WriteLine("Select an action:");
             Console.WriteLine("1. Play Music");
