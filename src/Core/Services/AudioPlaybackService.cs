@@ -1,7 +1,9 @@
+using MediaPlayer.src.Core.Attributes;
 using MediaPlayer.src.Core.Interfaces;
 
 namespace MediaPlayer.src.Core.Services 
 {
+    [MediaPlayerType("audio")]
     public class AudioPlaybackService : IPlaybackService
     {
         public void Play(string filePath)
