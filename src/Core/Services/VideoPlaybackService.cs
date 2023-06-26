@@ -6,9 +6,9 @@ namespace MediaPlayer.src.Core.Services
     [MediaPlayerType("video")]
     public class VideoPlaybackService : IPlaybackService
     {
-        public void Play(string filePath)
+        public void Play()
         {
-            Console.WriteLine("Playing video file: " + filePath);
+            Console.WriteLine("Playing video file ");
         }
 
         public void Pause()
