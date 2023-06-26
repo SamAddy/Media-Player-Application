@@ -84,11 +84,11 @@ namespace MediaPlayer.src.Controller.CLI
             {
                 if (_isVideoPlayerSelected)
                 {
-                    _videoPlaybackService.Play(filePath);
+                    _videoPlaybackService.Play();
                 }
                 else
                 {
-                    _audioPlaybackService.Play(filePath);
+                    _audioPlaybackService.Play();
                 }
             }
         }
