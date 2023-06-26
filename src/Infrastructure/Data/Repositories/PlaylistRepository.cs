@@ -1,66 +1,86 @@
+using MediaPlayer.src.Core.Entities;
+using MediaPlayer.src.Core.Interfaces;
+
 namespace MediaPlayer.src.Infrastructure.Data.Repositories
 {
-    public class PlaylistRepository
+    public class PlaylistRepository : IPlaylistRepository
     {
-        private readonly Dictionary<string, List<string>> _playlists;
+        private readonly Dictionary<string, List<MediaFile>> _playlists;
 
         public PlaylistRepository()
         {
-            _playlists = new Dictionary<string, List<string>>();
+            _playlists = new();
         }
 
-        public bool CreatePlaylist(string playlistName)
+        public bool CreatePlaylist(Playlist playlist)
         {
-            if (string.IsNullOrEmpty(playlistName) || _playlists.ContainsKey(playlistName))
+            if (string.IsNullOrEmpty(playlist.Name) || _playlists.ContainsKey(playlist.Name))
             {
                 return false;
             }
-            _playlists.Add(playlistName, new List<string>());
+            _playlists.Add(playlist.Name, new List<MediaFile>());
             return true;
         }
 
-        public bool AddSongToPlaylist(string playlistName, string songFilePath)
+        public bool AddFileToPlaylist(string playlistName, MediaFile mediaFile)
         {
-            if (string.IsNullOrEmpty(playlistName) || string.IsNullOrEmpty(songFilePath) || !_playlists.ContainsKey(playlistName))
+            if (string.IsNullOrEmpty(playlistName) || mediaFile == null || !_playlists.ContainsKey(playlistName))
             {
                 return false;
             }
-            List<string> playlist = _playlists[playlistName];
-            if (playlist.Contains(songFilePath))
+            List<MediaFile> playlist = _playlists[playlistName];
+            if (playlist.Contains(mediaFile))
             {
                 return false;
             }
-            playlist.Add(songFilePath);
+            playlist.Add(mediaFile);
             return true;
         }
 
-        public bool RemoveSongFromPlaylist(string playlistName, string songFilePath)
+        public bool RemoveFileFromPlaylist(string playlistName, MediaFile mediaFile)
         {
-            if (string.IsNullOrEmpty(playlistName) || string.IsNullOrEmpty(songFilePath) || !_playlists.ContainsKey(playlistName))
+            if (string.IsNullOrEmpty(playlistName) || mediaFile == null || !_playlists.ContainsKey(playlistName))
             {
                 return false;
             }
-            List<string> playlist = _playlists[playlistName];
-            return playlist.Remove(songFilePath);
+            List<MediaFile> playlist = _playlists[playlistName];
+            return playlist.Remove(mediaFile);
         }
 
-        public List<string> GetPlaylistSongs(string playlistName)
+        public bool RemovePlaylist(Playlist playlist)
+        {
+            var foundPlaylist = GetPlaylistByName(playlist.Name);
+            if (foundPlaylist != null)
+            {
+                _playlists.Remove(playlist.Name);
+                return true;
+            }
+            return false;
+        }
+
+        public List<MediaFile> GetPlaylistFiles(string playlistName)
         {
             if (string.IsNullOrEmpty(playlistName) || !_playlists.ContainsKey(playlistName))
             {
-                return new List<string>();
+                return new List<MediaFile>();
             }
-            return new List<string>(_playlists[playlistName]);
+            return new List<MediaFile>(_playlists[playlistName]);
         }
 
-        public List<string> GetAllPlaylists()
+        public List<Playlist> GetAllPlaylists()
         {
             if (_playlists.Keys.Count !> 0)
             {
                 Console.WriteLine("You don't have any playlist. Create one.");
-                return new List<string>();
+                return new List<Playlist>();
             }
-            return _playlists.Keys.ToList();
+            return _playlists.Select(KeyValuePair => new Playlist(KeyValuePair.Key)).ToList();
+        }
+
+        public List<MediaFile> GetPlaylistByName(string playlistName)
+        {
+            List<MediaFile> playlist = _playlists[playlistName];
+            return playlist;
         }
     }
 }
