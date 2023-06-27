@@ -23,7 +23,7 @@ The media player application is a robust software that meets the requirements by
 
 4. Error Handling:
 
-- Gracefully handle errors and exceptions
+    - Gracefully handle errors and exceptions
 
 ## Architecture
 
